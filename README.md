@@ -1,47 +1,69 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19790121&assignment_repo_type=AssignmentRepo)
-# MongoDB Fundamentals Assignment
+# MongoDB Fundamentals Assignment - PLP Bookstore
 
-This assignment focuses on learning MongoDB fundamentals including setup, CRUD operations, advanced queries, aggregation pipelines, and indexing.
+## 📖 Project Overview
+This project demonstrates core MongoDB operations including CRUD, aggregations, indexing, and performance optimization for a bookstore database as part of the PLP MERN Stack program.
 
-## Assignment Overview
+## 🚀 Quick Start
 
-You will:
-1. Set up a MongoDB database
-2. Perform basic CRUD operations
-3. Write advanced queries with filtering, projection, and sorting
-4. Create aggregation pipelines for data analysis
-5. Implement indexing for performance optimization
+### Prerequisites
+- MongoDB Server (local or Atlas)
+- MongoDB Shell (`mongosh`)
+- Node.js (optional, only needed for original script version)
 
-## Getting Started
+### Installation
+1. Clone this repository
+2. Navigate to project directory:
+   ```bash
+   cd week-1-mongodb-fundamentals-assignment-WAIYAH
 
-1. Accept the GitHub Classroom assignment invitation
-2. Clone your personal repository that was created by GitHub Classroom
-3. Install MongoDB locally or set up a MongoDB Atlas account
-4. Run the provided `insert_books.js` script to populate your database
-5. Complete the tasks in the assignment document
+##📂 File Structure
+.
+├── insert_books.js          # Data population script
+├── queries.js               # All task solutions (CRUD, aggregations, etc.)
+├── README.md                # This documentation
+└── assets/
+    └── screenshot.png       # Database proof
 
-## Files Included
 
-- `Week1-Assignment.md`: Detailed assignment instructions
-- `insert_books.js`: Script to populate your MongoDB database with sample book data
+## 🔧 Core Operations
+// CREATE
+db.books.insertOne({
+  title: "The Pragmatic Programmer",
+  author: "Andrew Hunt",
+  genre: "Programming",
+  published_year: 1999,
+  price: 32.99,
+  in_stock: true,
+  pages: 352,
+  publisher: "Addison-Wesley"
+})
 
-## Requirements
+// READ
+// Find Fantasy books
+db.books.find({ genre: "Fantasy" }) 
 
-- Node.js (v18 or higher)
-- MongoDB (local installation or Atlas account)
-- MongoDB Shell (mongosh) or MongoDB Compass
+// UPDATE
+// Increase price for specific book
+db.books.updateOne(
+  { title: "The Hobbit" },
+  { $inc: { price: 5 } }
+)
 
-## Submission
+// DELETE
+// Remove out-of-stock books
+db.books.deleteMany({ in_stock: false })
 
-Your work will be automatically submitted when you push to your GitHub Classroom repository. Make sure to:
 
-1. Complete all tasks in the assignment
-2. Add your `queries.js` file with all required MongoDB queries
-3. Include a screenshot of your MongoDB database
-4. Update the README.md with your specific setup instructions
+## 🏎️ Performance Optimization
+// Single-field index
+db.books.createIndex({ genre: 1 })
 
-## Resources
+// Compound index
+db.books.createIndex({ author: 1, published_year: -1 })
 
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [MongoDB University](https://university.mongodb.com/)
-- [MongoDB Node.js Driver](https://mongodb.github.io/node-mongodb-native/) 
+// Performance comparison
+db.books.find({ author: "J.R.R. Tolkien" })
+  .explain("executionStats")
+
+## 🖼️ Proof of Implementation
+./img/db.png
